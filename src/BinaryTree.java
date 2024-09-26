@@ -1,4 +1,5 @@
 import enums.Labels;
+import enums.TreeOrderType;
 
 public class BinaryTree {
 	private class Node {
@@ -27,8 +28,11 @@ public class BinaryTree {
 		bt.insert(2);
 		bt.insert(8);
 		
-		bt.delete(5);
 		bt.inOrder();
+		System.out.println();
+		bt.preOrder();
+		System.out.println();
+		bt.postOrder();
 	}
 	
 	private Node root;
@@ -103,29 +107,39 @@ public class BinaryTree {
 	}
 	
 	public void inOrder() {
-		if (root == null) {
-			throw new RuntimeException(Labels.BINARY_TREE_EMPTY.getLabel());
-		} else {
-			showChildNodesInOrder(root);
-		}
-	}
-	
-	private void showChildNodesInOrder(Node node) {
-		if (node != null) {
-			System.out.println(node.value);
-			showChildNodesInOrder(node.left);
-			showChildNodesInOrder(node.right);
-		}
+		viewTree(root, TreeOrderType.IN_ORDER);
 	}
 	
 	public void preOrder() {
-		
+		viewTree(root, TreeOrderType.PRE_ORDER);
 	}
 	
 	public void postOrder() {
+		viewTree(root, TreeOrderType.POST_ORDER);
 		
 	}
 	
+	private void viewTree(Node node, TreeOrderType type) {
+		if (node != null) {
+			switch (type) {
+			case TreeOrderType.IN_ORDER:
+				System.out.println(node.value);
+				viewTree(node.left, type);
+				viewTree(node.right, type);
+				break;
+			case TreeOrderType.PRE_ORDER:
+				viewTree(node.left, type);
+				System.out.println(node.value);
+				viewTree(node.right, type);
+				break;
+			case TreeOrderType.POST_ORDER:
+				viewTree(node.left, type);
+				viewTree(node.right, type);
+				System.out.println(node.value);
+				break;
+			}
+		}
+	}
 	public int minimum() {
 		return 0;
 	}

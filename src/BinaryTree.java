@@ -33,6 +33,11 @@ public class BinaryTree {
 		bt.preOrder();
 		System.out.println();
 		bt.postOrder();
+		System.out.println();
+		bt.search(8);
+		
+		System.out.println();
+		System.out.println(bt.inserted);
 	}
 	
 	private Node root;
@@ -103,7 +108,31 @@ public class BinaryTree {
 	}
 	
 	public void search(int value) {
+		if (root == null) {
+			throw new RuntimeException(Labels.BINARY_TREE_EMPTY.getLabel());
+		} else {
+			if (value < root.value) {
+				findNode(value, root.left);
+			} else if (value > root.value) {
+				findNode(value, root.right);
+			} else {
+				findNode(value, root);
+			}
+		}
 		
+//		// Low Performance
+//		findNode(value, root);
+	}
+	
+	private void findNode(int value, Node node) {
+		if (node != null) {
+			if (node.value == value) {
+				System.out.println("result: " + node.value);
+			} else {
+				findNode(value, node.left);
+				findNode(value, node.right);
+			}	
+		}
 	}
 	
 	public void inOrder() {

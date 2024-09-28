@@ -78,6 +78,28 @@ public class AvlTree {
 		return node;
 	}
 	
+	private Node rotateRight(Node node) {
+		var leftChild = node.left;
+		node.left = leftChild.right;
+		leftChild.left = node;
+		
+		node.height = 1 + max(heightOf(node.left), heightOf(node.right));
+		leftChild.height = 1 + max(heightOf(leftChild.left), heightOf(leftChild.right));
+		
+		return leftChild;
+	}
+	
+	private Node rotateLeft(Node node) {
+		var rightChild = node.right;
+		node.right = rightChild;
+		rightChild.right = node;
+		
+		node.height = 1 + max(heightOf(node.left), heightOf(node.right));
+		rightChild.height = 1 + max(heightOf(rightChild.left), heightOf(rightChild.right));
+		
+		return rightChild;
+	}
+	
 	private int getBalance(Node node) {
 		int balance = 0;
 		

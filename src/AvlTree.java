@@ -29,10 +29,6 @@ public class AvlTree {
 	private static int TREE_BALANCE_LIMIT = 2;
 	private Node root;
 	private int inserted;
-	
-	private void rotate(Node node) {
-		
-	}
 
 	public void insert(int value) {
 		if (root == null) {

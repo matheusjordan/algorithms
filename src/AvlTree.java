@@ -18,27 +18,13 @@ public class AvlTree {
 	
 	public static void main(String ...args) {
 		AvlTree bt = new AvlTree();
+		bt.insert(30);
+		
+		bt.insert(20);
+		bt.insert(40);
+		bt.insert(10);
 		bt.insert(5);
-		
-		bt.insert(1);
-		bt.insert(4);
-		bt.insert(9);
-		bt.insert(6);
 		bt.insert(3);
-		bt.insert(7);
-		bt.insert(2);
-		bt.insert(8);
-		
-		bt.inOrder();
-		System.out.println();
-		bt.preOrder();
-		System.out.println();
-		bt.postOrder();
-		System.out.println();
-		bt.search(8);
-		
-		System.out.println();
-		System.out.println(bt.inserted);
 	}
 	
 	private Node root;
@@ -50,33 +36,52 @@ public class AvlTree {
 
 	public void insert(int value) {
 		if (root == null) {
-			root = new Node(value, null);
-			inserted++;
-
+			root = insertNode(value, null);
 		} else {
 			insertNode(value, root);
 		}
 		
 	}
 	
-	private void insertNode(int value, Node node) {
-		if (value < node.value) {
-			if (node.left == null) {
-				node.left = new Node(value, node);
-				inserted++;
-
-			} else {
-				insertNode(value, node.left);	
-			}
-		} else if (value > node.value){
-			if (node.right == null) {
-				node.right = new Node(value, node);
-				inserted++;
-
-			} else {
-				insertNode(value, node.right);	
-			}
+	private Node insertNode(int value, Node node) {
+		if (node == null) {
+			return new Node(value, null);
 		}
+
+		if (value < node.value) {
+			node.left = insertNode(value, node.left);
+		} else if (value > node.value) {
+			node.right = insertNode(value, node.right);
+		}
+		
+		inserted++;
+		
+		node.height = 1 + max(heightOf(node.left), heightOf(node.right));
+		int nodeBalance = getBalance(node);
+		
+		System.out.println(node.height);
+		System.out.println(nodeBalance);
+		System.out.println("----------");
+		
+		return node;
+	}
+	
+	private int getBalance(Node node) {
+		int balance = 0;
+		
+		if (node != null) {
+			balance = heightOf(node.left) - heightOf(node.right);
+		}
+		
+		return balance;
+	}
+	
+	private int heightOf(Node node) {
+		return (node != null) ? node.height : 0;
+	}
+	
+	private int max(int a, int b) {
+		return (a == b) ? a : (a < b) ? b : a;
 	}
 	
 	public void delete(int value) {

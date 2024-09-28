@@ -60,19 +60,21 @@ public class AvlTree {
 		int nodeBalance = getBalance(node);
 		
 		if (nodeBalance >= TREE_BALANCE_LIMIT && value < node.left.value) {
-			System.out.println("LL");
+			return rotateRight(node);
 		}
 		
 		if (nodeBalance <= -TREE_BALANCE_LIMIT && value > node.right.value) {
-			System.out.println("RR");
+			return rotateLeft(node);
 		}
 		
 		if (nodeBalance >= TREE_BALANCE_LIMIT && value > node.left.value) {
-			System.out.println("LR");
+			node.left = rotateLeft(node.left);
+			return rotateRight(node);
 		}
 		
 		if (nodeBalance <= -TREE_BALANCE_LIMIT && value < node.right.value) {
-			System.out.println("RL");
+			node.right = rotateRight(node.right);
+			return rotateLeft(node);
 		}
 		
 		return node;

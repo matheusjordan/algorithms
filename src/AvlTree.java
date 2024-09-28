@@ -19,7 +19,6 @@ public class AvlTree {
 	public static void main(String ...args) {
 		AvlTree bt = new AvlTree();
 		bt.insert(30);
-		
 		bt.insert(20);
 		bt.insert(40);
 		bt.insert(10);
@@ -27,6 +26,7 @@ public class AvlTree {
 		bt.insert(3);
 	}
 	
+	private static int TREE_BALANCE_LIMIT = 2;
 	private Node root;
 	private int inserted;
 	
@@ -59,9 +59,21 @@ public class AvlTree {
 		node.height = 1 + max(heightOf(node.left), heightOf(node.right));
 		int nodeBalance = getBalance(node);
 		
-		System.out.println(node.height);
-		System.out.println(nodeBalance);
-		System.out.println("----------");
+		if (nodeBalance >= TREE_BALANCE_LIMIT && value < node.left.value) {
+			System.out.println("LL");
+		}
+		
+		if (nodeBalance <= -TREE_BALANCE_LIMIT && value > node.right.value) {
+			System.out.println("RR");
+		}
+		
+		if (nodeBalance >= TREE_BALANCE_LIMIT && value > node.left.value) {
+			System.out.println("LR");
+		}
+		
+		if (nodeBalance <= -TREE_BALANCE_LIMIT && value < node.right.value) {
+			System.out.println("RL");
+		}
 		
 		return node;
 	}

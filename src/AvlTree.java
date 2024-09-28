@@ -6,7 +6,7 @@ public class AvlTree {
 		private Node parent;
 		private Node right;
 		private Node left;
-		private int heigth = 1;
+		private int height = 1;
 
 		private int value;
 		
@@ -43,6 +43,10 @@ public class AvlTree {
 	
 	private Node root;
 	private int inserted;
+	
+	private void rotate(Node node) {
+		
+	}
 
 	public void insert(int value) {
 		if (root == null) {
